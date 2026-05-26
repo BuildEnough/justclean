@@ -94,13 +94,64 @@ img {
 }
 
 .hero-section {
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 82px 22px 72px;
+  position: relative;
+  max-width: none;
+  margin: 0;
+  padding: 92px 22px 82px;
   display: grid;
-  grid-template-columns: 1.02fr 0.98fr;
+  grid-template-columns: minmax(0, 560px) minmax(0, 560px);
   gap: 52px;
   align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #f5f7f6;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(245, 247, 246, 0.72) 0%,
+      rgba(245, 247, 246, 0.86) 28%,
+      rgba(245, 247, 246, 0.9) 50%,
+      rgba(245, 247, 246, 0.86) 72%,
+      rgba(245, 247, 246, 0.72) 100%
+    ),
+    var(--hero-bg-image),
+    var(--hero-bg-image);
+  background-position:
+    center,
+    left center,
+    right center;
+  background-size:
+    cover,
+    auto 100%,
+    auto 100%;
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(13, 143, 96, 0.12), transparent 34%),
+    rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(1px);
+}
+
+.hero-content,
+.hero-image-area {
+  position: relative;
+  z-index: 1;
 }
 
 .section-badge {
@@ -193,9 +244,10 @@ img {
 .hero-summary div {
   padding: 22px;
   border-radius: 24px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid #e4ece8;
   box-shadow: 0 12px 28px rgba(15, 36, 28, 0.04);
+  backdrop-filter: blur(10px);
 }
 
 .hero-summary span {
@@ -727,6 +779,29 @@ img {
     padding-top: 58px;
   }
 
+  .hero-section::before {
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(245, 247, 246, 0.98) 0%,
+        rgba(245, 247, 246, 0.9) 48%,
+        rgba(245, 247, 246, 0.66) 100%
+      ),
+      var(--hero-bg-image);
+    background-position:
+      center,
+      center top;
+    background-size:
+      cover,
+      contain;
+  }
+
+  .hero-section::after {
+    background:
+      radial-gradient(circle at 20% 20%, rgba(13, 143, 96, 0.12), transparent 34%),
+      rgba(255, 255, 255, 0.08);
+  }
+
   .hero-content h1 {
     font-size: 46px;
   }
@@ -768,6 +843,15 @@ img {
   .hero-section {
     padding: 42px 18px 58px;
     gap: 36px;
+  }
+
+  .hero-section::before {
+    background-position:
+      center,
+      center top;
+    background-size:
+      cover,
+      100% auto;
   }
 
   .hero-content h1 {

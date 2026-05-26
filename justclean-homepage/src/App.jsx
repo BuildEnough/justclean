@@ -271,7 +271,12 @@ function App() {
       </header>
 
       <main id="home">
-        <section className="hero-section">
+        <section
+          className="hero-section"
+          style={{
+            '--hero-bg-image': `url(${imagePath('hero/hero-bg.jpg')})`,
+          }}
+        >
           <div className="hero-content">
             <p className="section-badge">Premium Cleaning Service</p>
             <h1>{business.slogan}</h1>
