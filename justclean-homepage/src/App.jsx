@@ -205,7 +205,7 @@ function App() {
       after: imagePath("before-after/after-02.jpg"),
     },
     {
-      title: "공간 케어 전후",
+      title: "전체 세탁 전후",
       before: imagePath("before-after/before-03.jpg"),
       after: imagePath("before-after/after-03.jpg"),
     },
