@@ -16,9 +16,17 @@ function SmartImage({ src, alt, label, className = '' }) {
   }
 
   return (
-    <div className={`image-wrap ${className}`}>
+    <div className={`image-wrap protected-image ${className}`}>
       {label && <span className="image-label">{label}</span>}
-      <img src={src} alt={alt} onError={() => setIsError(true)} />
+      <img
+        src={src}
+        alt={alt}
+        draggable="false"
+        onContextMenu={(event) => event.preventDefault()}
+        onDragStart={(event) => event.preventDefault()}
+        onError={() => setIsError(true)}
+      />
+      <span className="watermark">JUST CLEAN</span>
     </div>
   )
 }
@@ -70,13 +78,35 @@ function HeroSlider({ images }) {
 }
 
 function App() {
+  useEffect(() => {
+    const blockContextMenu = (event) => {
+      if (event.target.closest('.protected-image')) {
+        event.preventDefault()
+      }
+    }
+
+    const blockDrag = (event) => {
+      if (event.target.tagName === 'IMG') {
+        event.preventDefault()
+      }
+    }
+
+    document.addEventListener('contextmenu', blockContextMenu)
+    document.addEventListener('dragstart', blockDrag)
+
+    return () => {
+      document.removeEventListener('contextmenu', blockContextMenu)
+      document.removeEventListener('dragstart', blockDrag)
+    }
+  }, [])
+
   const business = {
     name: '저스클린',
     phone: '010-9493-7701',
     phoneHref: '01094937701',
     slogan: '공간의 오염을 확인하고, 결과로 보여주는 청소',
     description:
-      '저스클린은 오염도 확인부터 장비 세팅, 건식·습식 클리닝, 소독 케어까지 공간 상태에 맞춰 꼼꼼하게 관리하는 청소 전문 서비스입니다.',
+      '저스클린은 오염도 확인부터 장비 세팅, 건식·습식 클리닝, 살균 소독까지 공간 상태에 맞춰 꼼꼼하게 관리하는 청소 전문 서비스입니다.',
     blog: 'https://blog.naver.com/ajswl0510',
     place:
       'https://map.naver.com/p/search/%EC%A0%80%EC%8A%A4%ED%81%B4%EB%A6%B0/place/1479521505?c=15.00,0,0,0,dh&placePath=/home?bk_query=%EC%A0%80%EC%8A%A4%ED%81%B4%EB%A6%B0&entry=pll&from=map&fromPanelNum=2&timestamp=202605251002&locale=ko&svcName=map_pcv5&searchText=%EC%A0%80%EC%8A%A4%ED%81%B4%EB%A6%B0',
@@ -96,24 +126,24 @@ function App() {
 
   const services = [
     {
-      title: '건식 클리닝',
+      title: '건식 작업',
       subTitle: 'Dry Cleaning',
       description:
-        '먼지, 이물질, 표면 오염을 먼저 정리해 청소 전 상태를 안정적으로 정돈합니다.',
+        '먼지, 이물질, 표면 오염을 먼저 제거해 본격적인 청소 전 공간 상태를 정리합니다.',
       image: imagePath('work/dry-cleaning.jpg'),
     },
     {
-      title: '습식 클리닝',
+      title: '습식 작업',
       subTitle: 'Wet Cleaning',
       description:
         '깊게 남은 오염은 습식 장비를 활용해 세척하고, 전후 차이가 보이도록 관리합니다.',
       image: imagePath('work/wet-cleaning.jpg'),
     },
     {
-      title: '소독 케어',
+      title: '살균 소독',
       subTitle: 'Disinfection',
       description:
-        '청소 후 위생 관리가 필요한 공간에 소독 케어를 더해 쾌적한 환경을 만듭니다.',
+        '청소 후 위생 관리가 필요한 공간에 살균 소독 작업을 더해 쾌적한 환경을 만듭니다.',
       image: imagePath('work/disinfection.jpg'),
     },
     {
@@ -132,19 +162,29 @@ function App() {
       image: imagePath('work/site-visit.jpg'),
     },
     {
-      title: '오염도 체크',
-      text: '오염 상태와 작업 범위를 확인해 적절한 청소 방식을 정합니다.',
-      image: imagePath('work/pollution-check.jpg'),
-    },
-    {
       title: '장비 세팅',
-      text: '작업에 필요한 장비와 도구를 준비하고 공간에 맞게 세팅합니다.',
+      text: '작업 공간과 오염 상태에 맞춰 필요한 장비와 도구를 준비합니다.',
       image: imagePath('work/equipment-setting.jpg'),
     },
     {
-      title: '맞춤 청소 진행',
-      text: '건식, 습식, 소독 등 상황에 맞는 방식으로 꼼꼼하게 작업합니다.',
+      title: '오염도 체크',
+      text: '오염 상태와 범위를 확인해 건식, 습식, 살균 소독 작업 순서를 정합니다.',
+      image: imagePath('work/pollution-check.jpg'),
+    },
+    {
+      title: '건식 작업',
+      text: '먼지와 이물질을 먼저 제거해 습식 작업 전 공간을 정리합니다.',
+      image: imagePath('work/dry-cleaning.jpg'),
+    },
+    {
+      title: '습식 작업',
+      text: '깊은 오염과 생활 오염을 습식 장비로 꼼꼼하게 세척합니다.',
       image: imagePath('work/wet-cleaning.jpg'),
+    },
+    {
+      title: '살균 소독',
+      text: '청소 후 위생 관리가 필요한 부분에 살균 소독 작업을 진행합니다.',
+      image: imagePath('work/disinfection.jpg'),
     },
     {
       title: '청소 완료',
@@ -168,6 +208,21 @@ function App() {
       title: '공간 케어 전후',
       before: imagePath('before-after/before-03.jpg'),
       after: imagePath('before-after/after-03.jpg'),
+    },
+    {
+      title: '부분 오염 집중 케어 전후',
+      before: imagePath('before-after/before-04.jpg'),
+      after: imagePath('before-after/after-04.jpg'),
+    },
+    {
+      title: '습식 클리닝 전후',
+      before: imagePath('before-after/before-05.jpg'),
+      after: imagePath('before-after/after-05.jpg'),
+    },
+    {
+      title: '마무리 케어 전후',
+      before: imagePath('before-after/before-06.jpg'),
+      after: imagePath('before-after/after-06.jpg'),
     },
   ]
 
@@ -238,7 +293,7 @@ function App() {
               </div>
               <div>
                 <span>작업 방식</span>
-                <strong>건식 · 습식 · 소독 · 장비 케어</strong>
+                <strong>현장 방문 · 건식 · 습식 · 살균 소독</strong>
               </div>
             </div>
           </div>
@@ -268,7 +323,7 @@ function App() {
             <div>
               <strong>02</strong>
               <h3>오염도 맞춤 케어</h3>
-              <p>오염 상태에 맞춰 건식, 습식, 소독 방식을 선택합니다.</p>
+              <p>오염 상태에 맞춰 건식, 습식, 살균 소독 방식을 선택합니다.</p>
             </div>
             <div>
               <strong>03</strong>
@@ -283,7 +338,7 @@ function App() {
             <p className="section-badge">Service</p>
             <h2>저스클린 주요 서비스</h2>
             <p>
-              공간과 오염 상태에 맞춰 건식 클리닝, 습식 클리닝, 소독 케어, 장비 전문
+              공간과 오염 상태에 맞춰 건식 작업, 습식 작업, 살균 소독, 장비 전문
               케어를 진행합니다.
             </p>
           </div>
@@ -309,31 +364,33 @@ function App() {
         </section>
 
         <section id="work" className="section work-section">
-          <div className="section-title">
+          <div className="section-title work-title">
             <p className="section-badge">Work Process</p>
-            <h2>상담부터 마무리까지 체계적으로 진행합니다.</h2>
+            <h2>작업은 이렇게 진행됩니다.</h2>
             <p>
-              고객에게 신뢰감을 줄 수 있도록 현장 방문부터 청소 완료까지의 과정을
-              이미지와 함께 보여줍니다.
+              현장 방문부터 장비 세팅, 오염도 체크, 건식 작업, 습식 작업, 살균 소독,
+              청소 완료까지 순서대로 진행됩니다.
             </p>
           </div>
 
-          <div className="work-grid">
-            {workSteps.map((step, index) => (
-              <article className="work-card" key={step.title}>
-                <SmartImage
-                  src={step.image}
-                  alt={step.title}
-                  label={String(index + 1).padStart(2, '0')}
-                  className="work-image"
-                />
+          <div className="work-timeline-wrap">
+            <div className="work-timeline">
+              {workSteps.map((step, index) => (
+                <article className="work-card" key={step.title}>
+                  <SmartImage
+                    src={step.image}
+                    alt={step.title}
+                    label={String(index + 1).padStart(2, '0')}
+                    className="work-image"
+                  />
 
-                <div className="work-content">
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </div>
-              </article>
-            ))}
+                  <div className="work-content">
+                    <h3>{step.title}</h3>
+                    <p>{step.text}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -347,7 +404,7 @@ function App() {
             </p>
           </div>
 
-          <div className="before-after-list">
+          <div className="before-after-grid">
             {beforeAfterList.map((item) => (
               <article className="before-after-card" key={item.title}>
                 <h3>{item.title}</h3>
