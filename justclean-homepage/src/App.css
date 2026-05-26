@@ -420,11 +420,45 @@ img {
 }
 
 .intro-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 38px;
   border-radius: 32px;
   background: #103c30;
   color: #fff;
   box-shadow: 0 20px 44px rgba(16, 60, 48, 0.16);
+}
+
+.intro-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--about-bg-image);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.intro-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(16, 60, 48, 0.72),
+      rgba(16, 60, 48, 0.48)
+    ),
+    rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(0.8px);
+}
+
+.intro-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .intro-card .section-badge {
@@ -679,12 +713,68 @@ img {
 }
 
 .contact-section {
-  padding: 96px 22px;
-  background:
-    linear-gradient(135deg, rgba(16, 60, 48, 0.96), rgba(13, 143, 96, 0.9)),
-    #103c30;
+  position: relative;
+  overflow: hidden;
+  padding: 110px 22px;
   color: #fff;
   text-align: center;
+  background: #10251d;
+}
+
+.contact-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(16, 37, 29, 0.74),
+      rgba(16, 37, 29, 0.62)
+    ),
+    var(--contact-bg-image),
+    var(--contact-bg-image);
+  background-position:
+    center,
+    left center,
+    right center;
+  background-size:
+    cover,
+    auto 100%,
+    auto 100%;
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat;
+}
+
+.contact-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.14), transparent 36%),
+    rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(1px);
+}
+
+.contact-inner {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 680px) {
+  .contact-section::before {
+    background-position:
+      center,
+      left center,
+      right center;
+    background-size:
+      cover,
+      auto 100%,
+      auto 100%;
+  }
 }
 
 .contact-inner {
