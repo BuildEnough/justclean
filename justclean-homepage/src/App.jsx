@@ -74,9 +74,9 @@ function App() {
     name: '저스클린',
     phone: '010-9493-7701',
     phoneHref: '01094937701',
-    slogan: '공간을 더 깨끗하고 쾌적하게',
+    slogan: '공간의 오염을 확인하고, 결과로 보여주는 청소',
     description:
-      '저스클린은 현장 확인부터 오염도 체크, 장비 세팅, 습식 청소, 마무리 관리까지 꼼꼼하게 진행하는 청소 전문 서비스입니다.',
+      '저스클린은 오염도 확인부터 장비 세팅, 건식·습식 클리닝, 소독 케어까지 공간 상태에 맞춰 꼼꼼하게 관리하는 청소 전문 서비스입니다.',
     blog: 'https://blog.naver.com/ajswl0510',
     place:
       'https://map.naver.com/p/search/%EC%A0%80%EC%8A%A4%ED%81%B4%EB%A6%B0/place/1479521505?c=15.00,0,0,0,dh&placePath=/home?bk_query=%EC%A0%80%EC%8A%A4%ED%81%B4%EB%A6%B0&entry=pll&from=map&fromPanelNum=2&timestamp=202605251002&locale=ko&svcName=map_pcv5&searchText=%EC%A0%80%EC%8A%A4%ED%81%B4%EB%A6%B0',
@@ -96,25 +96,32 @@ function App() {
 
   const services = [
     {
-      title: '습식 청소',
+      title: '건식 클리닝',
+      subTitle: 'Dry Cleaning',
+      description:
+        '먼지, 이물질, 표면 오염을 먼저 정리해 청소 전 상태를 안정적으로 정돈합니다.',
+      image: imagePath('work/dry-cleaning.jpg'),
+    },
+    {
+      title: '습식 클리닝',
       subTitle: 'Wet Cleaning',
       description:
-        '오염이 깊게 남은 부분은 습식 장비를 활용해 세척하고, 청소 전후 차이가 보이도록 꼼꼼하게 관리합니다.',
+        '깊게 남은 오염은 습식 장비를 활용해 세척하고, 전후 차이가 보이도록 관리합니다.',
       image: imagePath('work/wet-cleaning.jpg'),
     },
     {
       title: '소독 케어',
-      subTitle: 'Disinfection Care',
+      subTitle: 'Disinfection',
       description:
-        '청소 후 위생 관리가 필요한 공간은 소독 케어를 더해 더 쾌적한 환경을 만드는 데 집중합니다.',
-      image: imagePath('work/cleaning-complete.jpg'),
+        '청소 후 위생 관리가 필요한 공간에 소독 케어를 더해 쾌적한 환경을 만듭니다.',
+      image: imagePath('work/disinfection.jpg'),
     },
     {
-      title: '부분 집중 케어',
-      subTitle: 'Detail Care',
+      title: '장비 전문 케어',
+      subTitle: 'Equipment Care',
       description:
-        '오염이 심한 부분, 자주 사용하는 공간, 눈에 잘 띄는 구역을 중심으로 집중 관리가 가능합니다.',
-      image: imagePath('work/pollution-check.jpg'),
+        '공간과 오염 상태에 맞춰 장비를 세팅하고 효율적이고 꼼꼼하게 작업합니다.',
+      image: imagePath('work/equipment-setting.jpg'),
     },
   ]
 
@@ -135,8 +142,8 @@ function App() {
       image: imagePath('work/equipment-setting.jpg'),
     },
     {
-      title: '습식 청소',
-      text: '오염 상태에 맞춰 습식 청소를 진행하고 세부 구역까지 관리합니다.',
+      title: '맞춤 청소 진행',
+      text: '건식, 습식, 소독 등 상황에 맞는 방식으로 꼼꼼하게 작업합니다.',
       image: imagePath('work/wet-cleaning.jpg'),
     },
     {
@@ -148,17 +155,17 @@ function App() {
 
   const beforeAfterList = [
     {
-      title: '작업 전후 사례 01',
+      title: '오염 제거 전후',
       before: imagePath('before-after/before-01.jpg'),
       after: imagePath('before-after/after-01.jpg'),
     },
     {
-      title: '작업 전후 사례 02',
+      title: '생활 오염 클리닝 전후',
       before: imagePath('before-after/before-02.jpg'),
       after: imagePath('before-after/after-02.jpg'),
     },
     {
-      title: '작업 전후 사례 03',
+      title: '공간 케어 전후',
       before: imagePath('before-after/before-03.jpg'),
       after: imagePath('before-after/after-03.jpg'),
     },
@@ -201,6 +208,10 @@ function App() {
             <a href="#before-after">전후사진</a>
             <a href="#contact">문의</a>
           </nav>
+
+          <a className="header-call" href={`tel:${business.phoneHref}`}>
+            전화 상담
+          </a>
         </div>
       </header>
 
@@ -227,7 +238,7 @@ function App() {
               </div>
               <div>
                 <span>작업 방식</span>
-                <strong>현장 확인 · 습식 청소 · 소독 케어</strong>
+                <strong>건식 · 습식 · 소독 · 장비 케어</strong>
               </div>
             </div>
           </div>
@@ -251,17 +262,17 @@ function App() {
           <div className="trust-grid">
             <div>
               <strong>01</strong>
-              <h3>현장 중심</h3>
+              <h3>현장 중심 확인</h3>
               <p>사진과 현장 상태를 바탕으로 필요한 작업 범위를 확인합니다.</p>
             </div>
             <div>
               <strong>02</strong>
-              <h3>장비 활용</h3>
-              <p>오염 상태에 맞춰 장비를 세팅하고 효율적으로 작업합니다.</p>
+              <h3>오염도 맞춤 케어</h3>
+              <p>오염 상태에 맞춰 건식, 습식, 소독 방식을 선택합니다.</p>
             </div>
             <div>
               <strong>03</strong>
-              <h3>결과 확인</h3>
+              <h3>작업 결과 확인</h3>
               <p>작업 전후 사진으로 청소 결과를 직관적으로 보여줍니다.</p>
             </div>
           </div>
@@ -272,8 +283,8 @@ function App() {
             <p className="section-badge">Service</p>
             <h2>저스클린 주요 서비스</h2>
             <p>
-              오염 상태와 공간 특성에 맞춰 습식 청소, 소독 케어, 부분 집중 관리를
-              진행합니다.
+              공간과 오염 상태에 맞춰 건식 클리닝, 습식 클리닝, 소독 케어, 장비 전문
+              케어를 진행합니다.
             </p>
           </div>
 
@@ -300,7 +311,7 @@ function App() {
         <section id="work" className="section work-section">
           <div className="section-title">
             <p className="section-badge">Work Process</p>
-            <h2>작업은 이렇게 진행됩니다.</h2>
+            <h2>상담부터 마무리까지 체계적으로 진행합니다.</h2>
             <p>
               고객에게 신뢰감을 줄 수 있도록 현장 방문부터 청소 완료까지의 과정을
               이미지와 함께 보여줍니다.
@@ -329,10 +340,10 @@ function App() {
         <section id="before-after" className="section before-after-section">
           <div className="section-title">
             <p className="section-badge">Before & After</p>
-            <h2>작업 전후 사진</h2>
+            <h2>작업 전후 사진으로 결과를 확인하세요.</h2>
             <p>
-              고객이 가장 신뢰하는 부분은 실제 결과입니다. 작업 전후 사진을 통해
-              청소 차이를 직관적으로 보여줍니다.
+              청소 서비스에서 가장 중요한 것은 실제 결과입니다. 작업 전후 사진을 통해
+              오염 개선과 공간 변화를 직관적으로 확인할 수 있습니다.
             </p>
           </div>
 
@@ -353,7 +364,7 @@ function App() {
         <section className="section channel-section">
           <div className="section-title">
             <p className="section-badge">Channel</p>
-            <h2>저스클린 바로가기</h2>
+            <h2>저스클린 공식 채널</h2>
             <p>블로그, 플레이스, 당근, 인스타그램에서 더 많은 정보를 확인할 수 있습니다.</p>
           </div>
 
