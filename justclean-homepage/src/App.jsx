@@ -467,7 +467,8 @@ function App() {
           id="contact"
           className="contact-section"
           style={{
-            "--contact-bg-image": `url(${imagePath("contact/contact-bg.jpg")})`,
+            "--contact-left-bg-image": `url(${imagePath("contact/contact-left.jpg")})`,
+            "--contact-right-bg-image": `url(${imagePath("contact/contact-right.jpg")})`,
           }}
         >
           <div className="contact-inner">
